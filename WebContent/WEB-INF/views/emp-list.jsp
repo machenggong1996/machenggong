@@ -55,8 +55,8 @@
 					<td>${id}</td>
 					<td>${lastName}</td>
 					<td>${email}</td>
-					<td>${birth}</td>
-					<td>${createTime}</td>
+					<td><s:date name="brith" format="yyyy-MM-dd" /></td>
+					<td><s:date name="createTime" format="yyyy-MM-dd hh:mm:ss" /></td>
 					<td>${department.departmentName}</td>
 					<td><a href="emp-delete?id=${id}" class="delete">Delete </a> <input
 						type="hidden" value="${lastName}" /></td>

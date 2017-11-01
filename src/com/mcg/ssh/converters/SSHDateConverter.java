@@ -30,7 +30,7 @@ public class SSHDateConverter extends StrutsTypeConverter {
 	@Override
 	public String convertToString(Map context, Object o) {
 		if (o instanceof Date) {
-			return dateFormat.format(0);
+			return dateFormat.format((Date) o);
 		}
 		return null;
 	}

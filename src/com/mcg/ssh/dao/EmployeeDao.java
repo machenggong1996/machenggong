@@ -2,9 +2,6 @@ package com.mcg.ssh.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.mcg.ssh.entities.Employee;
 
 public class EmployeeDao extends BaseDao {
@@ -18,4 +15,9 @@ public class EmployeeDao extends BaseDao {
 		String hql = "FROM Employee e LEFT JOIN FETCH e.department";
 		return getSession().createQuery(hql).list();
 	}
+
+	public void saveOrUpdate(Employee employee) {
+		getSession().saveOrUpdate(employee);
+	}
+
 }

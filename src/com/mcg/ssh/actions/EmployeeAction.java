@@ -3,6 +3,7 @@ package com.mcg.ssh.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.RequestAware;
@@ -70,9 +71,14 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 	}
 
 	public String save() {
-		System.out.println(model);
+		model.setCreateTime(new Date());
+		employeeService.saveOrUpdate(model);
 		return SUCCESS;
 
+	}
+
+	public void prepareSave() {
+		model = new Employee();
 	}
 
 	private Map<String, Object> request;
@@ -84,7 +90,8 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 	}
 
 	@Override
-	public void prepare() throws Exception {}
+	public void prepare() throws Exception {
+	}
 
 	private Employee model;
 
