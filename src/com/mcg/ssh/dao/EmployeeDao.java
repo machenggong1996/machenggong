@@ -2,6 +2,8 @@ package com.mcg.ssh.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
+
 import com.mcg.ssh.entities.Employee;
 
 public class EmployeeDao extends BaseDao {
@@ -18,6 +20,16 @@ public class EmployeeDao extends BaseDao {
 
 	public void saveOrUpdate(Employee employee) {
 		getSession().saveOrUpdate(employee);
+	}
+
+	public Employee getEmployeeByLastName(String lastName) {
+		String hql = "FROM Employee e WHERE e.lastName = ?";
+		Query query = getSession().createQuery(hql).setString(0, lastName);
+		return (Employee) query.uniqueResult();
+	}
+
+	public Employee get(Integer id) {
+		return (Employee) getSession().get(Employee.class, id);
 	}
 
 }

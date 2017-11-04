@@ -62,7 +62,7 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 				e1.printStackTrace();
 			}
 		}
-		return "delete";
+		return "ajax-success";
 	}
 
 	public String input() {
@@ -70,15 +70,42 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 		return INPUT;
 	}
 
+	public void prepareInput() {
+		if (id != null) {
+			model = employeeService.get(id);
+		}
+	}
+
 	public String save() {
-		model.setCreateTime(new Date());
+		if (id == null) {
+			model.setCreateTime(new Date());
+		}
 		employeeService.saveOrUpdate(model);
 		return SUCCESS;
 
 	}
 
 	public void prepareSave() {
-		model = new Employee();
+		if (id == null) {
+			model = new Employee();
+		} else {
+			model = employeeService.get(id);
+		}
+	}
+
+	private String lastName;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String validateLastName() throws UnsupportedEncodingException {
+		if (employeeService.lastNameIsValid(lastName)) {
+			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+		} else {
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		}
+		return "ajax-success";
 	}
 
 	private Map<String, Object> request;
